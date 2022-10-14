@@ -19,7 +19,7 @@ fn main() {
     match ima_signatures.len() {
         0 => panic!("No IMA signatures found"),
         1 => {},
-        n => panic!(format!("Too many IMA signatures found: {}", n)),
+        n => panic!("Too many IMA signatures found: {}", n),
     }
 
     let ima_signature = &ima_signatures[0];
