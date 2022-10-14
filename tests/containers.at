@@ -17,7 +17,7 @@
 
 AT_SETUP([Container check])
 
-AT_SKIP_IF([! skopeo])
+AT_SKIP_IF([! skopeo --version])
 
 m4_include([include_setup.at])
 m4_include([include_start.at])
