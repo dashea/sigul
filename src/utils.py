@@ -270,9 +270,14 @@ def koji_read_config(global_config, instance):
                     instance))
     else:
         config_path = global_config.koji_config
-    parser = configparser.ConfigParser()
-    parser.read(('/etc/koji.conf', os.path.expanduser(config_path)))
-    config = dict(parser.items('koji'))
+
+    # Do not import koji globally. The rpm Python module calls NSS_NoDB_Init
+    # during its initialization, which breaks our attempt to initialize nss
+    # with our certificate database.
+    import koji
+
+    config = koji.read_config("koji", config_path)
+
     for opt in ('server', 'topurl'):
         if opt not in config:
             raise KojiError(
@@ -305,11 +310,9 @@ def koji_connect(koji_config, authenticate, proxyuser=None):
     # initialize nss with our certificate database.
     import koji
 
-    opts = {}
-    opts['krb_rdns'] = koji_config.get('krb_rdns', 'no').lower() in ('yes',
-                                                                     'true')
+    session_opts = koji.grab_session_options(koji_config)
 
-    session = koji.ClientSession(koji_config['server'], opts=opts)
+    session = koji.ClientSession(koji_config['server'], opts=session_opts)
     if authenticate:
         if koji_config['authtype'] == 'ssl':
             session.ssl_login(koji_config['cert'], None,
