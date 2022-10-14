@@ -353,7 +353,7 @@ AT_CHECK([printf 'root-key-pw\0' | \
 		sigul -c client/client.conf --batch -v -v \
 		get-public-key key > public.asc])
 AT_CHECK([gpg -q --homedir gnupg --import public.asc])
-AT_CHECK([rpm --dbpath "$(pwd)/rpm" --initdb])
+AT_CHECK([gzip -cd ../../tests/empty-rpmdb.tgz | tar xf -])
 AT_CHECK([rpm --dbpath "$(pwd)/rpm" --import public.asc])
 rm public.asc
 

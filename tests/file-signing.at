@@ -63,7 +63,7 @@ create_rpm()
 }
 
 
-AT_CHECK([rpm --dbpath "$(pwd)/rpm" --initdb])
+AT_CHECK([gzip -cd ../../tests/empty-rpmdb.tgz | tar xf -])
 AT_CHECK([rpm --dbpath "$(pwd)/rpm" --import \
 	$abs_srcdir/tests/imported-public-key.asc])
 
