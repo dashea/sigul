@@ -60,7 +60,7 @@ EXTRA_DIST = doc/data-design.txt doc/protocol-design.txt \
 	src/script.in src/settings.py.in \
 	tests/testsuite tests/package.m4 tests/testsuite.at $(TESTFILES) \
 	tests/imported-public-key.asc tests/imported-secret-key.asc \
-	tests/new-key-substitute.asc tests/testrpm.spec
+	tests/new-key-substitute.asc tests/testrpm.spec tests/empty-rpmdb.tgz
 TESTFILES = tests/basic.at tests/strict-usernames.at
 
 doc/sigul.1: doc/sigul.1.in Makefile
@@ -144,7 +144,11 @@ src/sigul_server_create_db: src/script.in Makefile
 clean-local:
 	$(SHELL) $(top_srcdir)/tests/testsuite --clean
 
-check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py
+$(top_builddir)/testtools/target/release/extract_ima_signatures: $(top_srcdir)/testtools/Cargo.toml $(top_srcdir)/testtools/src/extract_ima_signatures.rs
+	$(MKDIR_P) $(top_builddir)/testtools/target
+	cargo build --manifest-path $(top_srcdir)/testtools/Cargo.toml --bins --release --target-dir $(top_builddir)/testtools/target
+
+check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py $(top_builddir)/testtools/target/release/extract_ima_signatures
 	$(SHELL) $(top_srcdir)/tests/testsuite \
 		SIGULPATH=$(abs_top_srcdir)/src
 
