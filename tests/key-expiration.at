@@ -84,4 +84,4 @@ AT_CHECK([printf 'imported-key-pw\0' | \
 AT_CHECK([GNUPGHOME=server/gnupg gpg --list-keys | grep expires], 1, [], [ignore])
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

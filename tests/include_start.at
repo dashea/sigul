@@ -21,5 +21,7 @@ AT_CHECK([sigul_bridge -c bridge/bridge.conf -d -v -v \
 AT_CHECK([sigul_server -c server/server.conf -d -v -v \
 		--internal-log-dir="$(pwd)/server" \
 		--internal-pid-dir="$(pwd)/server"])
+trap "kill $(cat server/sigul_server.pid)" EXIT
+trap "kill -QUIT $(cat bridge/sigul_bridge.pid)" EXIT
 # TESTING TODO: Remove
 AT_CHECK([sleep 5])

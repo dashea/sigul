@@ -158,4 +158,4 @@ done
 rm -r expected expected-old output signed unsigned
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

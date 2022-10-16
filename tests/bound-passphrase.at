@@ -140,4 +140,4 @@ AT_CHECK([sigul -c client/client.conf --batch \
 [Error: Authentication failed
 ])
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

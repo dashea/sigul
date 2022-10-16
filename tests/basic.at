@@ -434,4 +434,4 @@ AT_CHECK([printf 'root-key-pw\0' | \
 rm empty.rpm
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

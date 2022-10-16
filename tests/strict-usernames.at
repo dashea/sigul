@@ -58,4 +58,4 @@ AT_CHECK([printf 'admin\0' | \
 ])
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

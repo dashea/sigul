@@ -51,4 +51,4 @@ AT_CHECK([ostree show --repo=repo \
 rm ostree.commit.b64
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

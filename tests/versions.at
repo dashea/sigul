@@ -28,4 +28,4 @@ AT_CHECK([printf 'rootroot\0' | \
 		list-users], 1, [], [ignore])
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

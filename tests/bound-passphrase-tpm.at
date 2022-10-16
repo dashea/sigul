@@ -80,4 +80,4 @@ AT_CHECK([gpg -q --homedir gnupg --verify data.asc], , , [ignore])
 rm data.asc
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

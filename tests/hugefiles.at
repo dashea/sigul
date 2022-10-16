@@ -53,4 +53,4 @@ AT_CHECK([printf 'imported-key-pw\0' | \
 AT_CHECK([gpg -q --homedir gnupg --verify sparsefile.asc sparsefile], , , [ignore])
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP

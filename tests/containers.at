@@ -68,4 +68,4 @@ AT_CHECK([GNUPGHOME=gnupg skopeo standalone-verify manifest.json testimage \
 ])
 
 
-m4_include([include_cleanup.at])
+AT_CLEANUP
