@@ -144,11 +144,15 @@ src/sigul_server_create_db: src/script.in Makefile
 clean-local:
 	$(SHELL) $(top_srcdir)/tests/testsuite --clean
 
+if have_cargo
 $(top_builddir)/testtools/target/release/extract_ima_signatures: $(top_srcdir)/testtools/Cargo.toml $(top_srcdir)/testtools/src/extract_ima_signatures.rs
 	$(MKDIR_P) $(top_builddir)/testtools/target
 	cargo build --manifest-path $(top_srcdir)/testtools/Cargo.toml --bins --release --target-dir $(top_builddir)/testtools/target
 
-check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py $(top_builddir)/testtools/target/release/extract_ima_signatures
+check-local: $(top_builddir)/testtools/target/release/extract_ima_signatures
+endif
+
+check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py
 	$(SHELL) $(top_srcdir)/tests/testsuite \
 		SIGULPATH=$(abs_top_srcdir)/src
 

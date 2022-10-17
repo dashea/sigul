@@ -20,6 +20,7 @@ m4_define([S_NUM_RPMS], [5])
 AT_SETUP([File signing check])
 
 AT_SKIP_IF([! which evmctl])
+AT_SKIP_IF([grep "have_cargo = 'no'" $SIGULPATH/settings.py])
 
 m4_include([include_setup.at])
 m4_include([include_start.at])

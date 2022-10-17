@@ -26,6 +26,7 @@ default_gnupg_home = os.path.join(_default_storage_path, 'gnupg')
 default_keys_storage = os.path.join(_default_storage_path, 'keys')
 koji_do_proxy_auth = True
 have_ostree = '@have_ostree@'
+have_cargo = '@have_cargo@'
 log_dir = '@logdir@'
 pid_dir = '@piddir@'
 version = '@PACKAGE_VERSION@'

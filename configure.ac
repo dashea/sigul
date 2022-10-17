@@ -50,5 +50,19 @@ AS_IF([test "x$have_ostree" = "xyes"],
 AC_ARG_VAR([have_ostree])
 AM_CONDITIONAL([have_ostree], [test "x$have_ostree" = "xyes"])
 
+AC_ARG_WITH([cargo],
+    AS_HELP_STRING([--without-cargo],
+                   [Ignore presence of cargo and disable rust-based tests]))
+AS_IF([test "x$with_cargo" != "xno"],
+      [AC_CHECK_PROG([CARGO], [cargo], [yes], [no])],
+      [CARGO=no])
+AS_IF([test "x$CARGO" = "xyes"],
+      [],
+      [AS_IF([test "x$with_cargo" = "xyes"],
+             [AC_MSG_ERROR([cargo requested but not found])])])
+have_cargo="$CARGO"
+AC_ARG_VAR([have_cargo])
+AM_CONDITIONAL([have_cargo], [test "x$have_cargo" = "xyes"])
+
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
