@@ -60,8 +60,26 @@ EXTRA_DIST = doc/data-design.txt doc/protocol-design.txt \
 	src/script.in src/settings.py.in \
 	tests/testsuite tests/package.m4 tests/testsuite.at $(TESTFILES) \
 	tests/imported-public-key.asc tests/imported-secret-key.asc \
-	tests/new-key-substitute.asc tests/testrpm.spec tests/empty-rpmdb.tgz
-TESTFILES = tests/basic.at tests/strict-usernames.at
+	tests/new-key-substitute.asc tests/testrpm.spec tests/empty-rpmdb.tgz \
+	testtools/Cargo.toml testtools/Cargo.lock testtools/src/extract_ima_signatures.rs \
+	tests/empty-rpmdb.tgz
+
+TESTFILES = tests/analysis.at \
+	    tests/basic.at \
+	    tests/bound-passphrase-keyring.at \
+	    tests/bound-passphrase-tpm.at \
+	    tests/bound-passphrase.at \
+	    tests/containers.at \
+	    tests/decrypt.at \
+	    tests/file-signing.at \
+	    tests/hugefiles.at \
+	    tests/include_importedkey.at \
+	    tests/include_setup.at \
+	    tests/include_start.at \
+	    tests/key-expiration.at \
+	    tests/ostree.at \
+	    tests/sign-rpms.at \
+	    tests/strict-usernames.at
 
 doc/sigul.1: doc/sigul.1.in Makefile
 	$(MKDIR_P) doc
