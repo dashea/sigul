@@ -62,7 +62,8 @@ EXTRA_DIST = doc/data-design.txt doc/protocol-design.txt \
 	tests/imported-public-key.asc tests/imported-secret-key.asc \
 	tests/new-key-substitute.asc tests/testrpm.spec tests/empty-rpmdb.tgz \
 	testtools/Cargo.toml testtools/Cargo.lock testtools/src/extract_ima_signatures.rs \
-	tests/empty-rpmdb.tgz
+	tests/empty-rpmdb.tgz tests/encrypted-armored.asc tests/encrypted-raw.asc \
+	tests/expired-key.asc tests/encrypted-wrongkey.asc tests/encrypted-unknown.asc
 
 TESTFILES = tests/analysis.at \
 	    tests/basic.at \
@@ -172,7 +173,8 @@ endif
 
 check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py
 	$(SHELL) $(top_srcdir)/tests/testsuite \
-		SIGULPATH=$(abs_top_srcdir)/src
+		PYTHONPATH="$(abs_top_builddir)/src" \
+		SIGULPATH="$(abs_top_srcdir)/src"
 
 installcheck-local: atconfig $(top_srcdir)/tests/testsuite
 	$(SHELL) $(top_srcdir)/tests/testsuite \

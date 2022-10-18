@@ -19,7 +19,7 @@ AT_SETUP([Kerberos + koji])
 
 create_rpm()
 {
-    sed "s/@N@/$1"/g < "$abs_srcdir/tests/testrpm.spec" > "testrpm$1".spec
+    sed "s/@N@/$1"/g < "$abs_top_srcdir/tests/testrpm.spec" > "testrpm$1".spec
     rpmbuild --quiet --define "_specdir $(pwd)" --define "_rpmdir $(pwd)" \
         --define "_srcrpmdir $(pwd)" --clean --rmspec \
         -ba "testrpm$1.spec"
@@ -127,10 +127,10 @@ AT_DATA([kdc.conf], [[
   }
 ]])
 
-AT_CHECK([cp "$abs_srcdir/tests/koji.httpd.conf" koji/httpd.conf])
-AT_CHECK([cp "$abs_srcdir/tests/koji.hub.conf" koji/hub.conf])
-AT_CHECK([cp "$abs_srcdir/tests/koji.client.conf" koji/client.conf])
-AT_CHECK([cp "$abs_srcdir/tests/koji.wsgi" koji/koji.wsgi])
+AT_CHECK([cp "$abs_top_srcdir/tests/koji.httpd.conf" koji/httpd.conf])
+AT_CHECK([cp "$abs_top_srcdir/tests/koji.hub.conf" koji/hub.conf])
+AT_CHECK([cp "$abs_top_srcdir/tests/koji.client.conf" koji/client.conf])
+AT_CHECK([cp "$abs_top_srcdir/tests/koji.wsgi" koji/koji.wsgi])
 
 AT_CHECK([sed -ie "s^@TESTDIR@^$(pwd)^" kdc.conf krb5.conf slapd.conf koji/httpd.conf koji/koji.wsgi koji/hub.conf koji/client.conf])
 
@@ -216,7 +216,7 @@ AT_CHECK([createdb -h pgdb.sigul.test -w -O koji koji])
 AT_CHECK([psql -h pgdb.sigul.test -U koji -w -f /usr/share/doc/koji/docs/schema.sql], , [ignore])
 
 # Create koji level database info
-AT_CHECK([psql -h pgdb.sigul.test -U koji -w -f $abs_srcdir/tests/koji.data.sql], , [ignore])
+AT_CHECK([psql -h pgdb.sigul.test -U koji -w -f $abs_top_srcdir/tests/koji.data.sql], , [ignore])
 
 # Now start up the koji hub
 AT_CHECK([SOCKET_WRAPPER_DEFAULT_IFACE=13 httpd -f $(pwd)/koji/httpd.conf])

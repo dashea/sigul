@@ -26,7 +26,7 @@ m4_include([include_start.at])
 AT_CHECK([printf 'rootroot\0imported\0imported-key-pw\0' | \
  		sigul -c client/client.conf --batch -v -v \
 		import-key expired-key \
-		"$abs_srcdir/tests/expired-key.asc"])
+		"$abs_top_srcdir/tests/expired-key.asc"])
 AT_CHECK([printf 'rootroot\0' | \
 		sigul -c client/client.conf --batch -v -v \
 		list-keys], ,

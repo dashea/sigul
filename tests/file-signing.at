@@ -57,16 +57,16 @@ openssl x509 -in file-key-pubkey.cert.pem -out file-key-pubkey.cert.der -outform
 
 create_rpm()
 {
-	sed "s/@N@/$1"/g < "$abs_srcdir/tests/testrpm.spec" > "testrpm$1".spec
+	sed "s/@N@/$1"/g < "$abs_top_srcdir/tests/testrpm.spec" > "testrpm$1".spec
 	rpmbuild --quiet --define "_specdir $(pwd)" --define "_rpmdir $(pwd)" \
 		--define '_rpmfilename %{name}.rpm' --clean --rmspec \
 		-bb "testrpm$1.spec"
 }
 
 
-AT_CHECK([gzip -cd ../../tests/empty-rpmdb.tgz | tar xf -])
+AT_CHECK([gzip -cd "$abs_top_srcdir/tests/empty-rpmdb.tgz" | tar xf -])
 AT_CHECK([rpm --dbpath "$(pwd)/rpm" --import \
-	$abs_srcdir/tests/imported-public-key.asc])
+	$abs_top_srcdir/tests/imported-public-key.asc])
 
 # sign-rpm
 # Because of course RPM added a warning when you rpmbuild without post scripts....

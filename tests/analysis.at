@@ -17,7 +17,7 @@
 
 AT_SETUP([Analysis])
 
-AT_CHECK([bandit -r "$abs_srcdir/src" -ll], , [ignore], [ignore])
+AT_CHECK([bandit -r "$abs_top_srcdir/src" -ll], , [ignore], [ignore])
 AT_CHECK([pycodestyle-3 --ignore=W503,W504,W603 --count "$abs_srcdir"])
 
 AT_CLEANUP

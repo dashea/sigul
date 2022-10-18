@@ -25,7 +25,7 @@ m4_include([include_importedkey.at])
 AT_CHECK([[printf 'rootroot\0keyroot\0imported-key-pw\0' | \
  		sigul -c client/client.conf --batch -v -v \
 		import-key secondary-key \
-		"$abs_srcdir/tests/new-key-substitute.asc"]])
+		"$abs_top_srcdir/tests/new-key-substitute.asc"]])
 AT_CHECK([printf 'rootroot\0' | \
 		sigul -c client/client.conf --batch -v -v \
 		list-keys], ,
@@ -33,12 +33,12 @@ AT_CHECK([printf 'rootroot\0' | \
 secondary-key (gnupg)
 ])
 AT_CHECK([gpg -q --homedir gnupg --import \
-	$abs_srcdir/tests/imported-public-key.asc])
+	$abs_top_srcdir/tests/imported-public-key.asc])
 
 # Correctly decrypt armored text
 AT_CHECK([printf 'imported-key-pw\0' | \
 		sigul -c client/client.conf --batch -v -v \
-		decrypt imported-key $abs_srcdir/tests/encrypted-armored.asc],
+		decrypt imported-key $abs_top_srcdir/tests/encrypted-armored.asc],
 		0,
 		[Some foo Text bar
 ],
@@ -47,7 +47,7 @@ AT_CHECK([printf 'imported-key-pw\0' | \
 # Correctly decrypt binary text
 AT_CHECK([printf 'imported-key-pw\0' | \
 		sigul -c client/client.conf --batch -v -v \
-		decrypt imported-key $abs_srcdir/tests/encrypted-raw.asc],
+		decrypt imported-key $abs_top_srcdir/tests/encrypted-raw.asc],
 		0,
 		[Some other encrypted text
 ],
@@ -60,7 +60,7 @@ AT_CHECK([printf 'imported-key-pw\0' | \
 # Fail decrypting encrypted for wrong key
 AT_CHECK([printf 'imported-key-pw\0' | \
 		sigul -c client/client.conf --batch -v -v \
-		decrypt imported-key $abs_srcdir/tests/encrypted-wrongkey.asc],
+		decrypt imported-key $abs_top_srcdir/tests/encrypted-wrongkey.asc],
 		1,
 		[],
 		[Error: Decryption failed
@@ -69,7 +69,7 @@ AT_CHECK([printf 'imported-key-pw\0' | \
 # Fail decrypting encrypted for unknown key altogether
 AT_CHECK([printf 'imported-key-pw\0' | \
 		sigul -c client/client.conf --batch -v -v \
-		decrypt imported-key $abs_srcdir/tests/encrypted-unknown.asc],
+		decrypt imported-key $abs_top_srcdir/tests/encrypted-unknown.asc],
 		1,
 		[],
 		[Error: Decryption failed

@@ -43,7 +43,7 @@ AT_CHECK([mkdir repo/objects/43])
 AT_CHECK([mv ostree.commit repo/objects/43/520b4605aca8994b4c8253ead261d18dec9eca25f82aed507204b15bb52b6a.commit])
 AT_CHECK([mv ostree.commitmeta repo/objects/43/520b4605aca8994b4c8253ead261d18dec9eca25f82aed507204b15bb52b6a.commitmeta])
 # Because of course ostree uses gpg1 to check (i.e. gpg2 import doesn't work)
-AT_CHECK([ostree remote add --repo=repo test nowhere --gpg-import=$abs_srcdir/tests/imported-public-key.asc], , [Imported 1 GPG key to remote "test"
+AT_CHECK([ostree remote add --repo=repo test nowhere --gpg-import=$abs_top_srcdir/tests/imported-public-key.asc], , [Imported 1 GPG key to remote "test"
 ], [ignore])
 AT_CHECK([ostree show --repo=repo \
         43520b4605aca8994b4c8253ead261d18dec9eca25f82aed507204b15bb52b6a \
