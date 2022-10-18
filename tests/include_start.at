@@ -24,3 +24,6 @@ AT_CHECK([sigul_server -c server/server.conf -d -v -v \
 trap "kill $(cat server/sigul_server.pid) ; kill -QUIT $(cat bridge/sigul_bridge.pid)" EXIT
 # TESTING TODO: Remove
 AT_CHECK([sleep 5])
+
+AT_CAPTURE_FILE([server/sigul_server.log])
+AT_CAPTURE_FILE([bridge/sigul_bridge.log])

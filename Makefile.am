@@ -172,9 +172,14 @@ check-local: $(top_builddir)/testtools/target/release/extract_ima_signatures
 endif
 
 check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py
-	$(SHELL) $(top_srcdir)/tests/testsuite \
+	if ! $(SHELL) $(top_srcdir)/tests/testsuite \
 		PYTHONPATH="$(abs_top_builddir)/src" \
-		SIGULPATH="$(abs_top_srcdir)/src"
+		SIGULPATH="$(abs_top_srcdir)/src" ; then \
+	    echo "TEST SUITE FAILED" ; \
+	    echo "DUMPING testsuite.log:" ; \
+	    cat $(abs_top_builddir)/testsuite.log ; \
+	    exit 1 ; \
+	fi
 
 installcheck-local: atconfig $(top_srcdir)/tests/testsuite
 	$(SHELL) $(top_srcdir)/tests/testsuite \
