@@ -165,7 +165,7 @@ clean-local:
 if have_cargo
 $(top_builddir)/testtools/target/release/extract_ima_signatures: $(top_srcdir)/testtools/Cargo.toml $(top_srcdir)/testtools/src/extract_ima_signatures.rs
 	$(MKDIR_P) $(top_builddir)/testtools/target
-	cargo build --manifest-path $(top_srcdir)/testtools/Cargo.toml --bins --release --target-dir $(top_builddir)/testtools/target
+	cargo build $(CARGO_OPTS) --manifest-path $(top_srcdir)/testtools/Cargo.toml --bins --release --target-dir $(top_builddir)/testtools/target
 
 check-local: $(top_builddir)/testtools/target/release/extract_ima_signatures
 endif
