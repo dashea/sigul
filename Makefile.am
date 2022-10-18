@@ -169,6 +169,11 @@ $(top_builddir)/testtools/target/release/extract_ima_signatures: $(top_srcdir)/t
 	cargo build $(CARGO_OPTS) --manifest-path $(top_srcdir)/testtools/Cargo.toml --bins --release --target-dir $(top_builddir)/testtools/target
 
 check-local: $(top_builddir)/testtools/target/release/extract_ima_signatures
+
+.PHONY: clean-local-cargo
+clean-local: clean-local-cargo
+clean-local-cargo:
+	-rm -rf $(top_builddir)/testtools/target
 endif
 
 check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py
