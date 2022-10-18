@@ -176,8 +176,11 @@ clean-local-cargo:
 	-rm -rf $(top_builddir)/testtools/target
 endif
 
+# Disable writing python bytecode to avoid creating unexpected files in the build dir
+# when running tests.
 check-local: atconfig $(top_srcdir)/tests/testsuite src/settings.py
 	if ! $(SHELL) $(top_srcdir)/tests/testsuite \
+		PYTHONDONTWRITEBYTECODE=1 \
 		PYTHONPATH="$(abs_top_builddir)/src" \
 		SIGULPATH="$(abs_top_srcdir)/src" ; then \
 	    echo "TEST SUITE FAILED" ; \
