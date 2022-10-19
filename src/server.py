@@ -940,7 +940,7 @@ class SigningContext(object):
             self._passphrase_writer.write('%s\n' % self.__key_passphrase)
             self._passphrase_writer.flush()
 
-        logging.error("Starting signing operation")
+        logging.info("Starting signing operation")
         try:
             subprocess.run(
                 [
