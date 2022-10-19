@@ -377,15 +377,15 @@ rm data data.asc
 
 # sign-git-tag
 AT_CHECK([mkdir gitrepo])
-AT_CHECK([cd gitrepo; \
-        git init; \
-        git config user.name sigultest; \
-        git config user.email sigul@test.example.com; \
-        echo foobar >baz; \
-        git add baz; \
-        git commit -m foobar; \
-        git tag -a testtag -m testing; \
-        cd ..], 0, [ignore])
+AT_CHECK([cd gitrepo && \
+        git init && \
+        git config user.name sigultest && \
+        git config user.email sigul@test.example.com && \
+        echo foobar >baz && \
+        git add baz && \
+        git commit -m foobar && \
+        git tag -a testtag -m testing && \
+        cd ..], 0, [ignore], [ignore])
 AT_CHECK([cd gitrepo;
         printf 'root-key-pw\0' | \
             sigul -c ../client/client.conf --batch -v -v \
