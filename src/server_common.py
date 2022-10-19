@@ -24,6 +24,7 @@ import os
 from six import StringIO
 import shutil
 import subprocess
+import stat
 import tempfile
 
 import cryptography.hazmat.primitives.asymmetric.ec
@@ -511,11 +512,9 @@ def gpg_import_key(config, key_file):
     keyfpr = None
 
     def ignore_sockets(path, names):
-        to_ignore = []
-        for name in names:
-            if name.startswith('S.gpg-agent'):
-                to_ignore.append(name)
-        return to_ignore
+        return [n for n in names
+                if stat.S_ISSOCK(os.lstat(os.path.join(path, n)).st_mode)
+                ]
 
     try:
         backup_dir = os.path.join(tmp_dir, 'gnupghome-backup')
