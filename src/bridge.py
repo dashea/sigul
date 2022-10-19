@@ -463,16 +463,19 @@ class KojiClient(object):
         import rpm
 
         session = self.__get_session()
+        header_keys = ('siggpg', 'sigpgp', 'rsaheader', 'dsaheader')
         try:
-            header_fields = koji.get_header_fields(path, ('siggpg', 'sigpgp'))
+            header_fields = koji.get_header_fields(path, header_keys)
         except rpm.error:
             raise ForwardingError('Corrupt RPM returned by server')
 
-        sigkey = header_fields['siggpg']
-        if sigkey is None:
-            sigkey = header_fields['sigpgp']
-            if sigkey is None:
-                raise ForwardingError('Missing signature')
+        for field in header_keys:
+            if header_fields[field] is not None:
+                sigkey = header_fields[field]
+                break
+        else:
+            raise ForwardingError('Missing signature')
+
         sigkey = koji.get_sigpacket_key_id(sigkey)
         sighdr = koji.rip_rpm_sighdr(path)
         sighdr_digest = binascii.b2a_hex(nss.nss.md5_digest(sighdr))
